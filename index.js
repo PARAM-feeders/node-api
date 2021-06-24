@@ -1,14 +1,15 @@
-// import mongoose from 'mongoose';
-const mongoose = require("mongoose")
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
 const jwt = require("express-jwt");
 const jwks = require("jwks-rsa");
 const jwtAuthz = require("express-jwt-authz");
+require('dotenv').config();
 const port = process.env.PORT;
 const env = process.env.SERVER_ENV;
 const issuerBaseUrl = process.env.ISSUER_BASE_URL;
+const CONNECTION_URL = process.env.MDB_URL;
 
 const authorizeAccessToken = jwt({
   secret: jwks.expressJwtSecret({
@@ -27,10 +28,8 @@ const authorizePermission = jwtAuthz(["api:admin"], options);
 
 const app = express();
 
-
 app.use(helmet());
 app.use(cors());
-
 
 // Public API
 app.get("/", (req, res) => {
@@ -59,16 +58,9 @@ app.get(
   }
 );
 
-app.listen(port, () => {
-  console.log(`Listening at ${port} in ${env}`);
-});
-
-
-const CONNECTION_URL = 'mongodb+srv://groupProject:feedtheneed@cluster0.qnjpb.mongodb.net/paramFeeders?retryWrites=true&w=majority';
-const PORT = process.env.PORT|| 3000;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
+  .then(() => app.listen(port, () => console.log(`Server Running on Port: http://localhost:${port} in ${env}`)))
   .catch((error) => console.log(`${error} did not connect`));
 
 mongoose.set('useFindAndModify', false);
