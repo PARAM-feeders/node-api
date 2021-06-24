@@ -24,7 +24,7 @@ const authorizePermission = jwtAuthz(["api:admin"], options);
 // console.log("authorizeAccessToken", authorizeAccessToken, authorizePermission);
 
 router
-  .get('/posts', ctrl.getAllPosts) // get all posts
+  .get('/posts',authorizeAccessToken, ctrl.getAllPosts) // get all posts
   .post('/posts', ctrl.createPost)  // create posts
 
 
