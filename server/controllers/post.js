@@ -13,6 +13,8 @@ const getAllPosts = async (req, res) => {
 
 //   get one post
 const getSinglePost = async (req, res) => {
+    console.log("req.body", req.params)
+
     await Post.findById(req.params.id)
         .exec((err, postData) => {
             if (!postData) {
@@ -35,9 +37,12 @@ const getSinglePost = async (req, res) => {
 
 // create posts
 const createPost = function (req, res) {
+    console.log("req", req.body);
     Post.create({
         name: req.body.name,
-        description: req.body.name
+        description: req.body.description,
+        image: req.body.image,
+        location: req.body.location
     },
         (err, postData) => {
             if (err) {
