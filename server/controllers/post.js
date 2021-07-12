@@ -42,7 +42,8 @@ const createPost = function (req, res) {
         name: req.body.name,
         description: req.body.description,
         image: req.body.image,
-        location: req.body.location
+        location: req.body.location,
+        user_id : req.body.user_id
     },
         (err, postData) => {
             if (err) {
