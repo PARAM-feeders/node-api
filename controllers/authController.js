@@ -3,7 +3,7 @@ const User = require('../models/user');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const sendToken = require('../utils/jwtToken');
-const sendEmail = require('../utils/sendEmail');
+// const sendEmail = require('../utils/sendEmail');
 
 const crypto = require('crypto');
 const cloudinary = require('cloudinary');
@@ -80,16 +80,16 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
     try {
 
-        await sendEmail({
-            email: user.email,
-            subject: 'ShopIT Password Recovery',
-            message
-        })
+        // await sendEmail({
+        //     email: user.email,
+        //     subject: 'ShopIT Password Recovery',
+        //     message
+        // })
 
-        res.status(200).json({
-            success: true,
-            message: `Email sent to: ${user.email}`
-        })
+        // res.status(200).json({
+        //     success: true,
+        //     message: `Email sent to: ${user.email}`
+        // })
 
     } catch (error) {
         user.resetPasswordToken = undefined;

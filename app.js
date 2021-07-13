@@ -22,8 +22,10 @@ app.use(cors());
 
 // Import all routes
 const auth = require("./routes/auth");
+const posts = require("./routes/posts");
 
 app.use("/api/v1", auth);
+app.use("/api", posts);
 
 if (process.env.NODE_ENV === "PRODUCTION") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));
